@@ -1,4 +1,4 @@
-# Voice -> transcript
+## Voice -> transcript
 
 ```mermaid
 flowchart LR
@@ -22,8 +22,9 @@ flowchart LR
 
 
 ```
+---
 
-# Paragraph → Mind-Map
+## Paragraph → Mind-Map
 
 ```mermaid
 flowchart LR

@@ -162,6 +162,7 @@ Logging tracks:
 - Exceptions and fallbacks
 
 ## Sample output is available in: 📁 `performance.log`
+---
 
 ## Troubleshooting
 
@@ -211,3 +212,5 @@ Configure Docker Desktop resources:
 
 - Backend: Change port with `--port 8001`
 - Frontend: Edit `vite.config.js`, change `port: 3000`
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/AI-Engineer-Skool/local-ai-transcript-app)
