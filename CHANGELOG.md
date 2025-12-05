@@ -4,12 +4,32 @@ This document summarizes the modifications, enhancements, and new files added as
 
 ---
 
+## 📅 Version 1.2 — Feedback Implementation & UI Integration
+
+### 🚀 New Features (Full Stack)
+- **Mind Map UI Integration**
+  - Added `frontend/src/components/MindMapViewer.jsx` using `mermaid.js` for in-browser rendering.
+  - Updated `App.tsx` with a dedicated "PDF Mind Map" section.
+  - Added buttons to **Export JSON** and **Export Mermaid** directly from the UI.
+- **Audio Persistence**
+  - Implemented MP3 conversion in `backend/app.py` using `pydub`.
+  - Input audio is now validated, converted, and saved as `saved_input.mp3` before transcription.
+
+### 🛠 Backend Enhancements
+- **Paragraph Range Extraction**
+  - Updated `backend/pdf_extractor.py` with `extract_text_range` to support reading multiple paragraphs (default: first 2 paragraphs).
+- **Mermaid Code Generation**
+  - Added `json_to_mermaid` utility in `backend/mindmap_service.py` to programmatically generate valid Mermaid graph syntax.
+- **Consistent Logging**
+  - Created `backend/logger_config.py` to standardize log formatting across all modules.
+  - Applied consistent logging to trace user actions (API calls) and system events (inference, errors).
+
+---
+
 ## 📅 Version 1.1 — Assignment Submission Release
 
 ### 🔧 Added
-
 - **New CLI Feature**
-
   - `execute.py` — root-level entry point for running the mind-map workflow.
   - `backend/cli_mindmap.py` — orchestrates PDF extraction, transcript cleaning, and mind-map generation.
   - `backend/pdf_extractor.py` — extracts paragraph-level text from PDF documents.
@@ -17,46 +37,30 @@ This document summarizes the modifications, enhancements, and new files added as
   - `backend/transcript_service.py` — reused cleaning logic for both voice and PDF pipelines.
 
 - **Documentation**
-
   - `architecture.md` — full architecture overview including both pipelines.
   - `dfd.md` — Data Flow Diagrams (voice→transcript and paragraph→mind-map).
   - `sequence.md` — detailed sequence diagrams for both workflows.
   - `README.md` — updated with setup steps, usage instructions, and feature details.
 
 - **Logging**
-
   - Implemented detailed runtime logging for extraction, validation, inference, and visual output generation.
   - Added `performance.log` containing real sample execution logs (metadata, timing, memory usage, and output status).
 
 - **Output Artifacts**
   - `mindmap.html` — generated example mind-map output for reviewer reference.
-
----
+  - `mindmap.json` — raw data output.
+  - `mindmap.txt` — transcript input reference.
 
 ### 🛠 Improved
-
 - Integrated transcript sanitization flow into the new PDF pipeline using existing LLM interface.
 - Extended environment configuration support for multi-model backends (Ollama / LM Studio / OpenAI API compatible).
 - Ensured consistent error handling and safe fallback behavior during failed inference.
 
----
-
 ### 🗂 Restructured
-
 - Maintained project structure alignment with the base repository.
-- Introduced separation of concerns between:
-  
-  - PDF extraction
-  - Text cleaning
-  - Mind-map generation
-  - API functionality
-
----
+- Introduced separation of concerns between PDF extraction, Text cleaning, and Mind-map generation.
 
 ### 🧪 Tested
-
 - Verified functionality using:
-
-````bash
-uv run --project backend python execute.py backend/data/why-llm-cant-develop-software.pdf 1 15 --output mindmap.html```
-````
+  ```bash
+  uv run --project backend python execute.py backend/data/why-llm-cant-develop-software.pdf 1 15 --output mindmap.html
