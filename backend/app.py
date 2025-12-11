@@ -6,7 +6,21 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from pydub import AudioSegment
+try:
+    from pydub import AudioSegment
+except ImportError:
+    # Fallback for Python 3.13+ where audioop was removed
+    import sys
+    if sys.version_info >= (3, 13):
+        # pydub may fail to import on Python 3.13 due to missing audioop
+        # Try to install pyaudioop or handle gracefully
+        try:
+            import pyaudioop  # type: ignore
+        except ImportError:
+            # If pyaudioop is not available, we'll handle it at runtime
+            AudioSegment = None  # type: ignore
+    else:
+        raise
 
 from logger_config import setup_logger
 from mindmap_service import generate_mindmap_json, json_to_mermaid

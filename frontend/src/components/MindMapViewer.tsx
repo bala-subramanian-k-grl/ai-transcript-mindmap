@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import mermaid from 'mermaid';
 
-const MindMapViewer = ({ mermaidCode }) => {
-  const ref = useRef(null);
+interface MindMapViewerProps {
+  mermaidCode: string;
+}
+
+const MindMapViewer: React.FC<MindMapViewerProps> = ({ mermaidCode }) => {
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (mermaidCode && ref.current) {
@@ -22,7 +26,7 @@ const MindMapViewer = ({ mermaidCode }) => {
         .run({
           nodes: [ref.current],
         })
-        .catch((err) => console.error('Mermaid Render Error:', err));
+        .catch((err: unknown) => console.error('Mermaid Render Error:', err));
     }
   }, [mermaidCode]);
 
@@ -36,3 +40,4 @@ const MindMapViewer = ({ mermaidCode }) => {
 };
 
 export default MindMapViewer;
+
